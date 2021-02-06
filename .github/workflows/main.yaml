@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches: [main]
     tags:
       - "*"
 
@@ -14,7 +14,7 @@ jobs:
     - name: Prepare
       id: prep
       run: |
-        echo ${{ secrets.SENDGRI_API_DKEY }} >> sendgrid.env
+        echo ${{ secrets.SENDGRI_API_KEY }} >> sendgrid.env
         IS_LATEST=false
         DOCKER_IMAGE=eu.gcr.io/zeta-bebop-186920/emailgo
         VERSION=edge
