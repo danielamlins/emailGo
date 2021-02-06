@@ -54,7 +54,7 @@ func Send(email *mail.Email, subject string, message string) {
 
 	from := mail.NewEmail("Daniela", "contact@danielalins.com")
 	to := email
-	plainTextContent := message
+	plainTextContent := "plain text not supported yet"
 	htmlContent := message
 	sendgridMessage := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
 	dat, err := ioutil.ReadFile("/go/bin/sendgrid.env")
