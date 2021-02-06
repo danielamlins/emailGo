@@ -1,11 +1,12 @@
 package main
+
 import (
-	"fmt"
-	"net/http"
-	"log"
-	"os"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
+	"log"
+	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
@@ -14,7 +15,7 @@ import (
 )
 
 type RequestBody struct {
-	Email string `json:"email"`
+	Email   string `json:"email"`
 	Subject string `json:"subject"`
 	Message string `json:"message"`
 }
@@ -32,16 +33,16 @@ func sendemail(w http.ResponseWriter, r *http.Request) {
 	subject := requestBody.Subject
 	message := fmt.Sprintf("%[1]s %[2]s\n", requestBody.Email, requestBody.Message)
 	subjectTo := "E-mail confirmation."
-	messageTo := """<div style="font-size: large;">
+	messageTo := `<div style=\"font-size: large;\">
 	<p>Hi!</p>
 	<p>Thank you very much for your email. I'll respond to it as soon as possible.</p>
 	<p>Best Regards,</p>
 	<br>
 </div>
 <div>
-	<h4 style="margin: 0 0">Daniela Lins</h4>
-	<p style="margin: 0 0;">Full Stack Web Developer</p>
-</div"""
+	<h4 style=\"margin: 0 0\">Daniela Lins</h4>
+	<p style=\"margin: 0 0;\">Full Stack Web Developer</p>
+</div`
 
 	// Send me (Daniela) the email
 	Send(siteMail, subject, message)
@@ -49,7 +50,7 @@ func sendemail(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func Send(email *mail.Email, subject string, message string){
+func Send(email *mail.Email, subject string, message string) {
 
 	from := mail.NewEmail("Daniela", "contact@danielalins.com")
 	to := email
@@ -57,7 +58,7 @@ func Send(email *mail.Email, subject string, message string){
 	htmlContent := message
 	sendgridMessage := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
 	dat, err := ioutil.ReadFile("/go/bin/sendgrid.env")
-	 check(err)
+	check(err)
 	client := sendgrid.NewSendClient(string(dat))
 	response, err := client.Send(sendgridMessage)
 	if err != nil {
@@ -70,9 +71,9 @@ func Send(email *mail.Email, subject string, message string){
 }
 
 func check(e error) {
-    if e != nil {
-        panic(e)
-    }
+	if e != nil {
+		panic(e)
+	}
 }
 
 func Handlers() *mux.Router {
@@ -83,10 +84,9 @@ func Handlers() *mux.Router {
 	return r
 }
 
-
 func main() {
 	port := os.Getenv("PORT")
-	if (port == "") {
+	if port == "" {
 		port = "8000"
 	}
 
@@ -98,6 +98,5 @@ func main() {
 	// serve
 	log.Printf("Server up on port '%s'", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
-
 
 }
