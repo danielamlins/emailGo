@@ -32,7 +32,7 @@ func sendemail(w http.ResponseWriter, r *http.Request) {
 	to := mail.NewEmail("Sender", requestBody.Email)
 	subject := requestBody.Subject
 	message := fmt.Sprintf("%[1]s %[2]s\n", requestBody.Email, requestBody.Message)
-	subjectTo := "E-mail confirmation."
+	subjectTo := "E-mail confirmation. (Automated)"
 	messageTo := `<div style=\"font-size: large;\">
 	<p>Hi!</p>
 	<p>Thank you very much for your email. I'll respond to it as soon as possible.</p>
