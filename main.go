@@ -32,7 +32,7 @@ func sendemail(w http.ResponseWriter, r *http.Request) {
 	subject := requestBody.Subject
 	message := fmt.Sprintf("%[1]s %[2]s\n", requestBody.Email, requestBody.Message)
 	subjectTo := "E-mail confirmation."
-	messageTo := "    <div style="font-size: large;">
+	messageTo := """<div style="font-size: large;">
 	<p>Hi!</p>
 	<p>Thank you very much for your email. I'll respond to it as soon as possible.</p>
 	<p>Best Regards,</p>
@@ -41,7 +41,7 @@ func sendemail(w http.ResponseWriter, r *http.Request) {
 <div>
 	<h4 style="margin: 0 0">Daniela Lins</h4>
 	<p style="margin: 0 0;">Full Stack Web Developer</p>
-</div"
+</div"""
 
 	// Send me (Daniela) the email
 	Send(siteMail, subject, message)
