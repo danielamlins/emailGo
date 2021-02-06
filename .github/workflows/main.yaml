@@ -11,6 +11,9 @@ jobs:
     name: Docker
     runs-on: ubuntu-latest
     steps:
+    - name: Check out the repo
+      uses: actions/checkout@v2
+
     - name: Prepare
       id: prep
       run: |
@@ -49,9 +52,6 @@ jobs:
         echo ::set-output name=tags::${TAGS}
         echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
         echo ::set-output name=push_image::$PUSH_IMAGE
-
-    - name: Check out the repo
-      uses: actions/checkout@v2
 
     - name: Set up QEMU
       id: qemu
